@@ -1,0 +1,356 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap");
+
+:root {
+  --bg: #fcfcfb;
+  --ink: #131313;
+  --gray: #6b6b6b;
+  --gray-light: #b0b0b0;
+  --line: #e7e7e4;
+  --highlight: #fff1a8;
+  --max-width: 960px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Inter Tight", "Helvetica Neue", Arial, sans-serif;
+  font-stretch: condensed;
+  letter-spacing: -0.01em;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.wrap {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ---------- Header ---------- */
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 32px 24px 0;
+}
+
+.site-header .logo-name {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  font-size: 14px;
+  color: var(--gray);
+  transition: color 0.2s var(--ease);
+}
+
+.nav-links a:hover {
+  color: var(--ink);
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  padding: 120px 0 90px;
+}
+
+.hero h1 {
+  font-size: clamp(32px, 5.5vw, 52px);
+  font-weight: 600;
+  margin: 0 0 6px;
+  letter-spacing: -0.02em;
+}
+
+.wave {
+  display: inline-block;
+  animation: wave 2.4s ease-in-out infinite;
+  transform-origin: 70% 70%;
+}
+
+@keyframes wave {
+  0%, 60%, 100% { transform: rotate(0deg); }
+  10% { transform: rotate(14deg); }
+  20% { transform: rotate(-8deg); }
+  30% { transform: rotate(14deg); }
+  40% { transform: rotate(-4deg); }
+}
+
+.hero .rotator-line {
+  font-size: clamp(32px, 5.5vw, 52px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.rotator {
+  display: inline-block;
+  color: var(--ink);
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 2px;
+  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
+}
+
+.rotator.swap {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+/* ---------- Reveal on scroll ---------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+  transition-delay: var(--delay, 0s);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Cards ---------- */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding: 20px 0 100px;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 48px 20px;
+  font-size: 17px;
+  font-weight: 500;
+  background: #fff;
+  transition: border-color 0.25s var(--ease), transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+
+.card:hover {
+  border-color: var(--ink);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px -18px rgba(0, 0, 0, 0.35);
+}
+
+/* ---------- Worked at ---------- */
+
+.section-label {
+  font-size: 15px;
+  color: var(--gray);
+  margin-bottom: 28px;
+}
+
+.worked-at {
+  padding: 40px 0 90px;
+}
+
+.logo-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.logo-tile {
+  flex: 1 1 160px;
+  max-width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 22px;
+  background: #fff;
+}
+
+.logo-tile img {
+  max-width: 100%;
+  max-height: 34px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+/* ---------- Recommendation ---------- */
+
+.recommendation {
+  display: flex;
+  justify-content: center;
+  padding: 0 0 90px;
+}
+
+.rec-card {
+  width: 100%;
+  max-width: 420px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 28px;
+  background: #fff;
+}
+
+.rec-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.rec-head img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.rec-name {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.rec-title {
+  font-size: 13px;
+  color: var(--gray);
+}
+
+.rec-quote {
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.rec-quote mark {
+  background: var(--highlight);
+  color: inherit;
+  padding: 0.05em 0.15em;
+  border-radius: 3px;
+}
+
+.quote-mark {
+  font-size: 13px;
+  color: var(--gray-light);
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* ---------- Spoken with ---------- */
+
+.spoken-with {
+  padding: 0 0 120px;
+}
+
+.spoken-with ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.spoken-with li {
+  font-size: 15px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  border-top: 1px solid var(--line);
+  padding: 28px 0 40px;
+}
+
+.site-footer .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.site-footer .logo-name {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.site-footer .nav-links {
+  gap: 20px;
+}
+
+.site-footer .nav-links a {
+  font-size: 13px;
+}
+
+/* ---------- Simple content pages ---------- */
+
+.page-body {
+  padding: 100px 0 120px;
+  min-height: 40vh;
+}
+
+.page-body h1 {
+  font-size: clamp(28px, 4.5vw, 40px);
+  font-weight: 600;
+  margin: 0 0 16px;
+}
+
+.page-body p {
+  color: var(--gray);
+  font-size: 15px;
+  max-width: 560px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 28px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--ink);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 720px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .site-header {
+    padding-top: 24px;
+  }
+
+  .nav-links {
+    gap: 16px;
+  }
+
+  .hero {
+    padding: 80px 0 60px;
+  }
+}
