@@ -38,7 +38,7 @@ a {
 .wrap {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 8px;
 }
 
 .content-wrap {
@@ -55,7 +55,7 @@ a {
   justify-content: space-between;
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 32px 24px 0;
+  padding: 32px 8px 0;
 }
 
 .site-header .logo-name {
@@ -136,8 +136,8 @@ a {
 
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+  transform: translateY(32px);
+  transition: opacity 1s var(--ease), transform 1s var(--ease);
   transition-delay: var(--delay, 0s);
 }
 
@@ -178,7 +178,7 @@ a {
 /* ---------- Worked at + Recommendation ---------- */
 
 .section-label {
-  font-size: 15px;
+  font-size: 20px;
   color: var(--gray);
   margin-bottom: 28px;
 }
@@ -186,16 +186,26 @@ a {
 .worked-at-rec {
   display: grid;
   grid-template-columns: 1.2fr 1fr;
-  gap: 48px;
-  align-items: start;
+  grid-template-rows: auto 1fr;
+  column-gap: 48px;
+  row-gap: 0;
   padding: 40px 0 100px;
 }
 
+.wa-label {
+  grid-column: 1;
+  grid-row: 1;
+  margin-bottom: 44px;
+}
+
 .logo-grid {
+  grid-column: 1;
+  grid-row: 2;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   column-gap: 28px;
   row-gap: 30px;
+  align-self: start;
 }
 
 .logo-item {
@@ -213,6 +223,8 @@ a {
 }
 
 .logo-more {
+  align-items: flex-end;
+  padding-bottom: 3px;
   color: var(--gray-light);
   font-size: 14px;
 }
@@ -220,6 +232,9 @@ a {
 /* ---------- Recommendation ---------- */
 
 .rec-card {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: start;
   width: 100%;
   max-width: 420px;
   border: 1px solid var(--line);
@@ -291,14 +306,21 @@ a {
 }
 
 .spoken-with-grid li {
-  font-size: 15px;
+  font-size: 18px;
   padding: 14px 0;
 }
 
-.spoken-with .and-more {
-  margin: 8px 0 0;
+.spoken-with-grid li.has-more {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.and-more-inline {
   font-size: 14px;
   color: var(--gray-light);
+  white-space: nowrap;
 }
 
 /* ---------- Footer ---------- */
@@ -360,7 +382,23 @@ a {
 @media (max-width: 860px) {
   .worked-at-rec {
     grid-template-columns: 1fr;
-    gap: 48px;
+    grid-template-rows: auto auto auto;
+    row-gap: 48px;
+  }
+
+  .wa-label {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .logo-grid {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .rec-card {
+    grid-column: 1;
+    grid-row: 3;
   }
 }
 

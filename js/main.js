@@ -23,7 +23,7 @@ function renderHomepage() {
     cardsEl.innerHTML = SITE_CONTENT.cards
       .map(
         (card, i) =>
-          `<a class="card reveal" style="--delay:${(0.15 + i * 0.15).toFixed(2)}s" href="${card.href}">${card.title}</a>`
+          `<a class="card reveal" style="--delay:${(0.1 + i * 0.2).toFixed(2)}s" href="${card.href}">${card.title}</a>`
       )
       .join("");
   }
@@ -68,13 +68,25 @@ function renderHomepage() {
     const half = Math.ceil(SITE_CONTENT.spokenWith.length / 2);
     const colA = SITE_CONTENT.spokenWith.slice(0, half);
     const colB = SITE_CONTENT.spokenWith.slice(half);
-    spokenA.innerHTML = colA.map((n) => `<li>${n}</li>`).join("");
-    spokenB.innerHTML = colB.map((n) => `<li>${n}</li>`).join("");
-  }
 
-  const spokenMoreEl = document.querySelector("[data-spoken-with-more]");
-  if (spokenMoreEl) {
-    spokenMoreEl.textContent = SITE_CONTENT.spokenWithMore || "";
+    spokenA.innerHTML = colA
+      .map(
+        (n, i) =>
+          `<li class="reveal" style="--delay:${(i * 0.12).toFixed(2)}s">${n}</li>`
+      )
+      .join("");
+
+    spokenB.innerHTML = colB
+      .map((n, i) => {
+        const delay = (i * 0.12).toFixed(2);
+        const isLast = i === colB.length - 1;
+        const more =
+          isLast && SITE_CONTENT.spokenWithMore
+            ? `<span class="and-more-inline">${SITE_CONTENT.spokenWithMore}</span>`
+            : "";
+        return `<li class="reveal${isLast ? " has-more" : ""}" style="--delay:${delay}s"><span>${n}</span>${more}</li>`;
+      })
+      .join("");
   }
 
   initHeroRotator();
