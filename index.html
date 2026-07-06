@@ -15,27 +15,33 @@
     </nav>
   </header>
 
-  <main class="wrap">
+  <main class="content-wrap">
 
     <section class="hero">
-      <h1><span class="wave">👋</span> Hi</h1>
-      <p class="rotator-line">I'm <span class="rotator" data-rotator>Name</span></p>
+      <h1>Hi <span class="wave">👋</span></h1>
+      <p class="rotator-line">I'm <span class="rotator-wrap"><span class="rotator" data-rotator>Name</span></span></p>
     </section>
 
     <section class="cards" data-cards></section>
 
-    <section class="worked-at">
-      <p class="section-label">I have worked at...</p>
-      <div class="logo-grid" data-logos></div>
-    </section>
+    <section class="worked-at-rec">
+      <div class="worked-at">
+        <p class="section-label">I have worked at...</p>
+        <div class="logo-grid" data-logos></div>
+      </div>
 
-    <section class="recommendation">
-      <div class="rec-card reveal" data-recommendation></div>
+      <div class="recommendation">
+        <div class="rec-card reveal" data-recommendation></div>
+      </div>
     </section>
 
     <section class="spoken-with">
       <p class="section-label">I have spoken with...</p>
-      <ul data-spoken-with></ul>
+      <div class="spoken-with-grid">
+        <ul data-spoken-with-a></ul>
+        <ul data-spoken-with-b></ul>
+      </div>
+      <p class="and-more" data-spoken-with-more></p>
     </section>
 
   </main>

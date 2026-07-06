@@ -30,14 +30,20 @@ function renderHomepage() {
 
   const logosEl = document.querySelector("[data-logos]");
   if (logosEl) {
-    logosEl.innerHTML = SITE_CONTENT.workedAt
+    const logoItems = SITE_CONTENT.workedAt
       .map(
         (item, i) =>
-          `<div class="logo-tile reveal" style="--delay:${(0.5 + i * 0.15).toFixed(2)}s">
+          `<div class="logo-item reveal" style="--delay:${(0.5 + i * 0.15).toFixed(2)}s">
              <img src="${item.logo}" alt="${item.name}" loading="lazy" />
            </div>`
       )
       .join("");
+
+    const moreItem = SITE_CONTENT.workedAtMore
+      ? `<div class="logo-item logo-more reveal" style="--delay:${(0.5 + SITE_CONTENT.workedAt.length * 0.15).toFixed(2)}s">${SITE_CONTENT.workedAtMore}</div>`
+      : "";
+
+    logosEl.innerHTML = logoItems + moreItem;
   }
 
   const recEl = document.querySelector("[data-recommendation]");
@@ -56,11 +62,19 @@ function renderHomepage() {
     `;
   }
 
-  const spokenEl = document.querySelector("[data-spoken-with]");
-  if (spokenEl) {
-    spokenEl.innerHTML = SITE_CONTENT.spokenWith
-      .map((n) => `<li>${n}</li>`)
-      .join("");
+  const spokenA = document.querySelector("[data-spoken-with-a]");
+  const spokenB = document.querySelector("[data-spoken-with-b]");
+  if (spokenA && spokenB) {
+    const half = Math.ceil(SITE_CONTENT.spokenWith.length / 2);
+    const colA = SITE_CONTENT.spokenWith.slice(0, half);
+    const colB = SITE_CONTENT.spokenWith.slice(half);
+    spokenA.innerHTML = colA.map((n) => `<li>${n}</li>`).join("");
+    spokenB.innerHTML = colB.map((n) => `<li>${n}</li>`).join("");
+  }
+
+  const spokenMoreEl = document.querySelector("[data-spoken-with-more]");
+  if (spokenMoreEl) {
+    spokenMoreEl.textContent = SITE_CONTENT.spokenWithMore || "";
   }
 
   initHeroRotator();

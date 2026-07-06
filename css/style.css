@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap");
 
 :root {
-  --bg: #fcfcfb;
+  --bg: #ffffff;
   --ink: #131313;
   --gray: #6b6b6b;
   --gray-light: #b0b0b0;
@@ -39,6 +39,12 @@ a {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 24px;
+}
+
+.content-wrap {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 48px;
 }
 
 /* ---------- Header ---------- */
@@ -90,6 +96,7 @@ a {
 
 .wave {
   display: inline-block;
+  margin-left: 10px;
   animation: wave 2.4s ease-in-out infinite;
   transform-origin: 70% 70%;
 }
@@ -108,17 +115,21 @@ a {
   letter-spacing: -0.02em;
 }
 
+.rotator-wrap {
+  display: inline-block;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 2px;
+  vertical-align: baseline;
+}
+
 .rotator {
   display: inline-block;
   color: var(--ink);
-  border-bottom: 2px solid var(--ink);
-  padding-bottom: 2px;
-  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
+  transition: opacity 0.35s var(--ease);
 }
 
 .rotator.swap {
   opacity: 0;
-  transform: translateY(6px);
 }
 
 /* ---------- Reveal on scroll ---------- */
@@ -164,7 +175,7 @@ a {
   box-shadow: 0 12px 24px -18px rgba(0, 0, 0, 0.35);
 }
 
-/* ---------- Worked at ---------- */
+/* ---------- Worked at + Recommendation ---------- */
 
 .section-label {
   font-size: 15px;
@@ -172,43 +183,41 @@ a {
   margin-bottom: 28px;
 }
 
-.worked-at {
-  padding: 40px 0 90px;
+.worked-at-rec {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 48px;
+  align-items: start;
+  padding: 40px 0 100px;
 }
 
 .logo-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 28px;
+  row-gap: 30px;
 }
 
-.logo-tile {
-  flex: 1 1 160px;
-  max-width: 200px;
+.logo-item {
   display: flex;
   align-items: center;
-  justify-content: center;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 22px;
-  background: #fff;
+  justify-content: flex-start;
 }
 
-.logo-tile img {
+.logo-item img {
   max-width: 100%;
-  max-height: 34px;
+  max-height: 30px;
   width: auto;
   height: auto;
   object-fit: contain;
 }
 
-/* ---------- Recommendation ---------- */
-
-.recommendation {
-  display: flex;
-  justify-content: center;
-  padding: 0 0 90px;
+.logo-more {
+  color: var(--gray-light);
+  font-size: 14px;
 }
+
+/* ---------- Recommendation ---------- */
 
 .rec-card {
   width: 100%;
@@ -269,16 +278,27 @@ a {
   padding: 0 0 120px;
 }
 
-.spoken-with ul {
+.spoken-with-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 48px;
+}
+
+.spoken-with-grid ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.spoken-with li {
+.spoken-with-grid li {
   font-size: 15px;
   padding: 14px 0;
-  border-bottom: 1px solid var(--line);
+}
+
+.spoken-with .and-more {
+  margin: 8px 0 0;
+  font-size: 14px;
+  color: var(--gray-light);
 }
 
 /* ---------- Footer ---------- */
@@ -337,6 +357,13 @@ a {
 
 /* ---------- Responsive ---------- */
 
+@media (max-width: 860px) {
+  .worked-at-rec {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+
 @media (max-width: 720px) {
   .cards {
     grid-template-columns: 1fr;
@@ -352,5 +379,13 @@ a {
 
   .hero {
     padding: 80px 0 60px;
+  }
+
+  .content-wrap {
+    padding: 0 32px;
+  }
+
+  .logo-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

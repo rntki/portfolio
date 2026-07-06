@@ -31,14 +31,18 @@ const SITE_CONTENT = {
     { title: "About Me", href: "about.html" },
   ],
 
-  // "I have worked at..." logos. Add/remove entries to change the grid.
+  // "I have worked at..." logos — fills left-to-right, top-to-bottom in a
+  // 3-column grid. Add/remove entries to change the grid.
   workedAt: [
-    { name: "Apex", logo: "assets/logos/apex.png" },
     { name: "Yodo Labs", logo: "assets/logos/yodolabs.png" },
-    { name: "BD", logo: "assets/logos/bd.png" },
     { name: "Siemens", logo: "assets/logos/siemens.png" },
+    { name: "BD", logo: "assets/logos/bd.png" },
+    { name: "Apex", logo: "assets/logos/apex.png" },
     { name: "CSU Long Beach", logo: "assets/logos/csulb.png" },
   ],
+
+  // Text shown in the grid slot right after the last logo. Set to "" to hide it.
+  workedAtMore: "and more",
 
   // LinkedIn-style recommendation card.
   // Replace photo/name/title/quote with the real recommendation, copied exactly from LinkedIn.
@@ -50,6 +54,11 @@ const SITE_CONTENT = {
       "Paste the recommendation text here exactly as it appears on LinkedIn.",
   },
 
-  // "I have spoken with..." — just placeholder names for now, swap in real ones anytime.
-  spokenWith: ["Name", "Name", "Name"],
+  // "I have spoken with..." — just placeholder names for now, swap in real
+  // ones anytime. Rendered as two columns: the first half on the left, the
+  // second half on the right.
+  spokenWith: ["Name", "Name", "Name", "Name", "Name", "Name"],
+
+  // Text shown under the two columns above. Set to "" to hide it.
+  spokenWithMore: "and more",
 };
