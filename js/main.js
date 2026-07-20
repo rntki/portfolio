@@ -181,6 +181,39 @@ function initCursorStar() {
   requestAnimationFrame(animate);
 }
 
+function initNavToggle() {
+  const toggle = document.querySelector(".nav-toggle");
+  const nav = document.querySelector(".site-header nav");
+  if (!toggle || !nav) return;
+
+  function closeMenu() {
+    toggle.classList.remove("is-open");
+    nav.classList.remove("is-open");
+    toggle.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+  }
+
+  function openMenu() {
+    toggle.classList.add("is-open");
+    nav.classList.add("is-open");
+    toggle.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
+  }
+
+  toggle.addEventListener("click", () => {
+    if (nav.classList.contains("is-open")) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  });
+
+  // Close the menu once a link is tapped, so it doesn't stay open after navigating.
+  nav.addEventListener("click", (e) => {
+    if (e.target.closest("a")) closeMenu();
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   renderNav(document.querySelector("[data-nav]"));
   renderNav(document.querySelector("[data-footer-nav]"));
@@ -188,4 +221,5 @@ document.addEventListener("DOMContentLoaded", () => {
   renderHomepage();
   initScrollReveal();
   initCursorStar();
+  initNavToggle();
 });
