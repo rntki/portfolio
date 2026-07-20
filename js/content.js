@@ -10,24 +10,25 @@ const SITE_CONTENT = {
 
   // Words/phrases that rotate after "I'm " in the hero, every 2 seconds.
   // First one usually your name, then roles/titles.
-  heroRotator: [
-    "Rena Takii",
-    "a Product Designer",
-    "a Creative",
-  ],
+  heroRotator: ["Rena Takii", "a UX/UI Designer", "a Creative"],
 
   // Top nav + footer nav links. href can point to another page or a #section.
   nav: [
-    { label: "Resume", href: "resume.html" },
-    { label: "Projects", href: "projects.html" },
+    { label: "Home", href: "index.html" },
+    { label: "Case Studies", href: "case-studies.html" },
     { label: "About", href: "about.html" },
-    { label: "Contact", href: "contact.html" },
+    { label: "Resume", href: "Rena Takii Resume.pdf" },
+    { label: "Contact", href: "mailto:john_doe@example.com" },
+    {
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/in/rena-takii/",
+      icon: "LinkedIn_icon.png",
+    },
   ],
 
   // The 3 clickable cards under the hero.
   cards: [
-    { title: "My Resume", href: "resume.html" },
-    { title: "My Projects", href: "projects.html" },
+    { title: "Case Studies", href: "case-studies.html" },
     { title: "About Me", href: "about.html" },
   ],
 
@@ -48,17 +49,20 @@ const SITE_CONTENT = {
   // Replace photo/name/title/quote with the real recommendation, copied exactly from LinkedIn.
   recommendation: {
     photo: "assets/img/avatar-placeholder.svg",
-    name: "Full Name",
-    title: "Job Title, Company",
+    name: "K.V.",
+    title: "Head of Marketing APAC, Industrial Automation",
     quote:
-      "Paste the recommendation text here exactly as it appears on LinkedIn.",
+      "[...] [Rena] demonstrated initiative, professionalism and a strong willingness to learn. She delivered high-quality work, proactively identified opportunities for improvement, and collaborated effectively with team members [...] I am confident that she will be a valuable asset to any organization she joins.",
+  },
+  recommendation2: {
+    photo: "assets/img/avatar-placeholder.svg",
+    name: "S.O.",
+    title: "Co-founder & CEO, AI Startup",
+    quote:
+      "Rena demonstrated strong communication skills throughout her internship: articulate in both English and Japanese, which is genuinely rare. She approaches new challenges with a willingness to learn and adapts quickly in an ambiguous, fast-moving environment. I’d recommend her for roles that value clear thinking and cross-cultural communication.",
   },
 
   // "I have spoken with..." — just placeholder names for now, swap in real
   // ones anytime. Rendered as two columns: the first half on the left, the
   // second half on the right.
-  spokenWith: ["Name", "Name", "Name", "Name", "Name", "Name"],
-
-  // Text shown under the two columns above. Set to "" to hide it.
-  spokenWithMore: "and more",
 };

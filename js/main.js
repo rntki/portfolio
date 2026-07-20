@@ -7,7 +7,16 @@
 function renderNav(listEl) {
   if (!listEl) return;
   listEl.innerHTML = SITE_CONTENT.nav
-    .map((item) => `<li><a href="${item.href}">${item.label}</a></li>`)
+    .map((item) => {
+      const href = encodeURI(item.href);
+      const isPdf = item.href.toLowerCase().endsWith(".pdf");
+      const isExternal = /^https?:\/\//i.test(item.href);
+      // render icon link if provided
+      if (item.icon) {
+        return `<li><a href="${href}"${isExternal ? ' target="_blank" rel="noopener"' : ""}><img src="${item.icon}" alt="${item.label}" class="nav-icon"/></a></li>`;
+      }
+      return `<li><a href="${href}"${isPdf ? " download" : ""}${isExternal ? ' target="_blank" rel="noopener"' : ""}>${item.label}</a></li>`;
+    })
     .join("");
 }
 
@@ -21,10 +30,11 @@ function renderHomepage() {
   const cardsEl = document.querySelector("[data-cards]");
   if (cardsEl) {
     cardsEl.innerHTML = SITE_CONTENT.cards
-      .map(
-        (card, i) =>
-          `<a class="card reveal" style="--delay:${(0.1 + i * 0.2).toFixed(2)}s" href="${card.href}">${card.title}</a>`
-      )
+      .map((card, i) => {
+        const href = encodeURI(card.href);
+        const isPdf = card.href.toLowerCase().endsWith(".pdf");
+        return `<a class="card reveal" style="--delay:${(0.1 + i * 0.2).toFixed(2)}s" href="${href}"${isPdf ? " download" : ""}>${card.title}</a>`;
+      })
       .join("");
   }
 
@@ -32,18 +42,18 @@ function renderHomepage() {
   if (logosEl) {
     const logoItems = SITE_CONTENT.workedAt
       .map(
-        (item, i) =>
-          `<div class="logo-item reveal" style="--delay:${(0.5 + i * 0.15).toFixed(2)}s">
-             <img src="${item.logo}" alt="${item.name}" loading="lazy" />
-           </div>`
+        (item) =>
+          `<div class="logo-item"><img src="${item.logo}" alt="${item.name}" loading="lazy" /></div>`,
       )
       .join("");
 
-    const moreItem = SITE_CONTENT.workedAtMore
-      ? `<div class="logo-item logo-more reveal" style="--delay:${(0.5 + SITE_CONTENT.workedAt.length * 0.15).toFixed(2)}s">${SITE_CONTENT.workedAtMore}</div>`
-      : "";
+    // Duplicate the set for a seamless scroll effect.
+    logosEl.innerHTML = logoItems + logoItems;
+  }
 
-    logosEl.innerHTML = logoItems + moreItem;
+  const logoMoreEl = document.querySelector("[data-logo-more]");
+  if (logoMoreEl) {
+    logoMoreEl.textContent = SITE_CONTENT.workedAtMore || "";
   }
 
   const recEl = document.querySelector("[data-recommendation]");
@@ -57,36 +67,31 @@ function renderHomepage() {
           <div class="rec-title">${r.title}</div>
         </div>
       </div>
-      <span class="quote-mark">&ldquo;&rdquo;</span>
-      <p class="rec-quote"><mark>${r.quote}</mark></p>
+      <div class="rec-quote-block">
+        <span class="quote-mark quote-mark-open">&ldquo;</span>
+        <p class="rec-quote">${r.quote}</p>
+      </div>
+      <span class="quote-mark quote-mark-close">&rdquo;</span>
     `;
   }
 
-  const spokenA = document.querySelector("[data-spoken-with-a]");
-  const spokenB = document.querySelector("[data-spoken-with-b]");
-  if (spokenA && spokenB) {
-    const half = Math.ceil(SITE_CONTENT.spokenWith.length / 2);
-    const colA = SITE_CONTENT.spokenWith.slice(0, half);
-    const colB = SITE_CONTENT.spokenWith.slice(half);
-
-    spokenA.innerHTML = colA
-      .map(
-        (n, i) =>
-          `<li class="reveal" style="--delay:${(i * 0.12).toFixed(2)}s">${n}</li>`
-      )
-      .join("");
-
-    spokenB.innerHTML = colB
-      .map((n, i) => {
-        const delay = (i * 0.12).toFixed(2);
-        const isLast = i === colB.length - 1;
-        const more =
-          isLast && SITE_CONTENT.spokenWithMore
-            ? `<span class="and-more-inline">${SITE_CONTENT.spokenWithMore}</span>`
-            : "";
-        return `<li class="reveal${isLast ? " has-more" : ""}" style="--delay:${delay}s"><span>${n}</span>${more}</li>`;
-      })
-      .join("");
+  const recEl2 = document.querySelector("[data-recommendation-2]");
+  if (recEl2) {
+    const r2 = SITE_CONTENT.recommendation2 || SITE_CONTENT.recommendation;
+    recEl2.innerHTML = `
+      <div class="rec-head">
+        <img src="${r2.photo}" alt="${r2.name}" />
+        <div>
+          <div class="rec-name">${r2.name}</div>
+          <div class="rec-title">${r2.title}</div>
+        </div>
+      </div>
+      <div class="rec-quote-block">
+        <span class="quote-mark quote-mark-open">&ldquo;</span>
+        <p class="rec-quote">${r2.quote}</p>
+      </div>
+      <span class="quote-mark quote-mark-close">&rdquo;</span>
+    `;
   }
 
   initHeroRotator();
@@ -125,10 +130,55 @@ function initScrollReveal() {
         }
       });
     },
-    { threshold: 0.15 }
+    { threshold: 0.15 },
   );
 
   items.forEach((el) => observer.observe(el));
+}
+
+function initCursorStar() {
+  // Skip on touch devices — there's no hovering cursor to follow.
+  if (!window.matchMedia("(pointer: fine)").matches) return;
+
+  const star = document.createElement("img");
+  star.src = "assets/img/star.png";
+  star.alt = "";
+  star.className = "cursor-star";
+  document.body.appendChild(star);
+
+  let mouseX = -100;
+  let mouseY = -100;
+  let starX = mouseX;
+  let starY = mouseY;
+  let started = false;
+
+  window.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    if (!started) {
+      // Snap to the cursor on the very first move instead of drifting in from off-screen.
+      starX = mouseX;
+      starY = mouseY;
+      star.classList.add("is-visible");
+      started = true;
+    }
+  });
+
+  document.addEventListener("mouseleave", () => {
+    star.classList.remove("is-visible");
+  });
+  document.addEventListener("mouseenter", () => {
+    if (started) star.classList.add("is-visible");
+  });
+
+  function animate() {
+    // Ease toward the cursor each frame for a smooth, slightly delayed trail.
+    starX += (mouseX - starX) * 0.12;
+    starY += (mouseY - starY) * 0.12;
+    star.style.transform = `translate(${starX}px, ${starY}px) translate(-50%, -50%)`;
+    requestAnimationFrame(animate);
+  }
+  requestAnimationFrame(animate);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -137,4 +187,5 @@ document.addEventListener("DOMContentLoaded", () => {
   renderNames();
   renderHomepage();
   initScrollReveal();
+  initCursorStar();
 });
