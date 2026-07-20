@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rena Takii</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="logo-name" href="index.html" data-site-name>My Name</a>
+      <nav>
+        <ul class="nav-links" data-nav></ul>
+      </nav>
+    </header>
+
+    <main class="content-wrap">
+      <section class="hero">
+        <h1>Hi <span class="wave">👋</span></h1>
+        <p class="rotator-line">
+          I'm
+          <span class="rotator-wrap"
+            ><span class="rotator" data-rotator>Name</span></span
+          >
+        </p>
+      </section>
+
+      <section class="cards" data-cards></section>
+
+      <section class="worked-at-rec">
+        <p class="section-label wa-label reveal">I have worked at...</p>
+        <div class="logo-grid">
+          <div class="logo-mask">
+            <div class="logo-track" data-logos></div>
+          </div>
+        </div>
+        <div class="logo-more reveal" data-logo-more></div>
+      </section>
+
+      <section class="what-people-say">
+        <p class="section-label reveal">What people say</p>
+        <div class="recommendations">
+          <div class="recommendation-item">
+            <div
+              class="rec-card reveal rec-card-first"
+              data-recommendation
+            ></div>
+            <div class="rec-excerpt">Excerpt from my LinkedIn profile</div>
+          </div>
+          <div class="recommendation-item">
+            <div class="rec-card reveal" data-recommendation-2></div>
+            <div class="rec-excerpt">Excerpt from my LinkedIn profile</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="connect-section">
+        <h2 class="section-label reveal">Let's connect</h2>
+        <div class="connect-body">
+          <p>
+            I'm a UX/UI designer based in Tokyo, always looking for the next
+            person worth learning from - that curiosity has connected me with
+            design and business professionals across the world. Currently open
+            to full-time roles in UX/UI, product design, or visual design, plus
+            freelance and collaborations. If you're building something
+            interesting, would love to talk!
+          </p>
+        </div>
+        <div class="connect-email reveal">
+          <a href="mailto: create.rena@gmail.com">create.rena@gmail.com</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span class="logo-name" data-site-name>My Name</span>
+        <ul class="nav-links" data-footer-nav></ul>
+      </div>
+    </footer>
+
+    <script src="js/content.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
