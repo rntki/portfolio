@@ -704,6 +704,48 @@ a {
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
 }
 
+/* Text-only variant for case studies without accompanying images */
+.case-study-hero--full,
+.case-study-section--full {
+  grid-template-columns: 1fr;
+}
+
+.case-study-hero--full .case-study-copy,
+.case-study-section--full .case-study-copy {
+  max-width: 720px;
+  width: 100%;
+  margin: 0;
+}
+
+.case-study-copy.case-study-copy--wide {
+  max-width: none;
+}
+
+.case-study-copy.case-study-copy--900 {
+  max-width: 900px;
+}
+
+/* Wider media column for sections with an image grid instead of a single image */
+.case-study-section--grid-media {
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr);
+}
+
+.case-study-section--grid-media.section--reverse {
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.1fr);
+}
+
+/* Editorial two-column text flow */
+.case-study-columns {
+  column-count: 2;
+  column-gap: 56px;
+}
+
+.case-study-columns p,
+.case-study-columns ul,
+.case-study-columns li {
+  break-inside: avoid;
+}
+
 .eyebrow,
 .section-index {
   display: inline-block;
@@ -798,6 +840,64 @@ a {
   max-width: 200px;
 }
 
+.case-study-media--stack {
+  flex-direction: column;
+  gap: 24px;
+}
+
+.case-study-media--grid4 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  width: 100%;
+}
+
+.case-study-media--grid4 img {
+  max-width: none;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  border: none;
+  box-shadow: none;
+  border-radius: 16px;
+}
+
+/* Keep clockwise order (top-left, top-right, bottom-right, bottom-left)
+   despite the default row-major grid auto-placement. */
+.case-study-media--grid4 img:nth-child(3) {
+  grid-row: 2;
+  grid-column: 2;
+}
+
+.case-study-media--grid4 img:nth-child(4) {
+  grid-row: 2;
+  grid-column: 1;
+}
+
+/* Full-bleed standalone images between sections */
+.case-study-image-band {
+  padding: 40px 0 80px;
+}
+
+.case-study-image-band img,
+.case-study-image-group img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  box-shadow: 0 24px 60px -34px rgba(0, 0, 0, 0.28);
+}
+
+.case-study-image-group {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 40px 0 80px;
+}
+
 /* ---------- Responsive ---------- */
 
 @media (max-width: 860px) {
@@ -815,6 +915,10 @@ a {
 
   .case-study-media img {
     max-width: 100%;
+  }
+
+  .case-study-columns {
+    column-count: 1;
   }
 
   .worked-at-rec {

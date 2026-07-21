@@ -22,7 +22,7 @@ const SITE_CONTENT = {
     {
       label: "LinkedIn",
       href: "https://www.linkedin.com/in/rena-takii/",
-      icon: "LinkedIn_icon.png",
+      icon: "assets/logos/LinkedIn_icon.png",
     },
   ],
 
