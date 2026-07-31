@@ -272,13 +272,16 @@ a {
   letter-spacing: -0.02em;
 }
 
-.worked-at-rec,
+.worked-at-rec {
+  padding: 40px 0 40px;
+}
+
 .what-people-say {
   padding: 40px 0 120px;
 }
 
 .wa-label {
-  margin-bottom: 96px;
+  margin-bottom: 20px;
 }
 
 .logo-grid {
@@ -510,9 +513,8 @@ a {
   margin: var(--site-gap) 0 calc(var(--site-gap) * 2);
 }
 
-/* Give the projects section the same bottom padding as About page */
 .project-cards {
-  padding-bottom: 120px;
+  padding-bottom: 40px;
 }
 
 .project-cards .back-link {
@@ -606,11 +608,21 @@ a {
 
 .about-panel {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 360px;
+  grid-template-columns: minmax(0, 1fr) 300px;
   gap: 100px;
   align-items: start;
   padding: var(--page-top) 0 120px;
   min-height: 60vh;
+}
+
+/* This is now the first section on the home page, so it needs to clear the header itself. */
+.about-panel--home {
+  padding: 80px 0 60px; /* space above/below the hero section — adjust these two numbers to taste */
+  min-height: auto;
+}
+
+.about-panel--home .about-image {
+  margin-top: 106px; /* aligns the photo's top edge with the first paragraph line, below the heading */
 }
 
 .about-copy {
@@ -675,13 +687,21 @@ a {
 }
 
 .case-study-hero {
-  padding: var(--page-top) 0 80px; /* matches the top spacing used on about.html etc. */
+  padding: 56px 0 60px; /* space above/below the hero — kept tight so it fits one viewport height */
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr);
 }
 
 .case-study-hero .case-study-media img {
   max-width: 100%;
   object-fit: contain;
+}
+
+.case-study-hero .case-study-media--pair img {
+  max-width: 220px;
+}
+
+.case-study-media.case-study-media--small img {
+  max-width: 220px;
 }
 
 .case-study-section.section--reverse .case-study-copy {
@@ -708,6 +728,10 @@ a {
 .case-study-hero--full,
 .case-study-section--full {
   grid-template-columns: 1fr;
+}
+
+.case-study-hero--full {
+  padding: var(--page-top) 0 80px; /* matches the top spacing used on about.html etc. */
 }
 
 .case-study-hero--full .case-study-copy,
@@ -771,6 +795,13 @@ a {
   font-weight: 400;
   line-height: 1.08;
   letter-spacing: -0.02em;
+}
+
+/* Larger section heading variant — still regular weight, no italics */
+.case-study-copy h2.case-study-heading {
+  font-size: clamp(28px, 4vw, 36px);
+  font-weight: 400;
+  font-style: normal;
 }
 
 .case-study-copy p:not(.eyebrow):not(.section-index),
@@ -838,6 +869,51 @@ a {
 
 .case-study-media--pair img {
   max-width: 200px;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* Before/after screenshot pair, placed inline right after the paragraph it illustrates */
+.case-study-image-pair {
+  display: flex;
+  gap: 24px;
+  margin: 24px 0 48px;
+}
+
+.case-study-image-pair img {
+  flex: 1;
+  width: 50%;
+  height: auto;
+  display: block;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  box-shadow: 0 24px 60px -34px rgba(0, 0, 0, 0.28);
+}
+
+.case-study-image-pair.case-study-image-pair--small img {
+  flex: none;
+  width: 210px;
+  max-width: 210px;
+}
+
+/* Before & After: mile redeem on the left, flight choosing on the right */
+.before-after-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 48px;
+  row-gap: 16px;
+  margin-top: 24px;
+}
+
+.before-after-grid .case-study-image-pair {
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  .before-after-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
 }
 
 .case-study-media--stack {

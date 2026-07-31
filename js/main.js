@@ -30,11 +30,17 @@ function renderHomepage() {
   const cardsEl = document.querySelector("[data-cards]");
   if (cardsEl) {
     cardsEl.innerHTML = SITE_CONTENT.cards
-      .map((card, i) => {
-        const href = encodeURI(card.href);
-        const isPdf = card.href.toLowerCase().endsWith(".pdf");
-        return `<a class="card reveal" style="--delay:${(0.1 + i * 0.2).toFixed(2)}s" href="${href}"${isPdf ? " download" : ""}>${card.title}</a>`;
-      })
+      .map(
+        (card) => `<a class="project-card" href="${encodeURI(card.href)}">
+        <div class="card-media">
+          <img src="${card.image}" alt="${card.title}" />
+        </div>
+        <div class="card-content">
+          <div class="card-title">${card.title}</div>
+          <div class="card-subtitle">${card.subtitle}</div>
+        </div>
+      </a>`,
+      )
       .join("");
   }
 
