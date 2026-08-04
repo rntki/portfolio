@@ -789,6 +789,10 @@ a {
   letter-spacing: -0.02em;
 }
 
+.case-study-copy h1 .h1-small {
+  font-size: 0.7em;
+}
+
 .case-study-copy h2 {
   margin: 0 0 28px;
   font-size: clamp(24px, 3.4vw, 28px);

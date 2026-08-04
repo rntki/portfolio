@@ -27,6 +27,12 @@ const SITE_CONTENT = {
   // Case study project cards shown on the home page.
   cards: [
     {
+      title: "Bumble",
+      subtitle: "Japanese localization & UX improvement",
+      image: "assets/img/bumble-thumb.png",
+      href: "bumble.html",
+    },
+    {
       title: "JAL Card App",
       subtitle: "Credit card mileage app reconstruction",
       image: "assets/img/jal-thumb.png",
