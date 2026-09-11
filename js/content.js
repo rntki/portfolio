@@ -27,17 +27,27 @@ const SITE_CONTENT = {
   // Case study project cards shown on the home page.
   cards: [
     {
+      title: "kala",
+      subtitle: "An iOS app that saves colors and memories together",
+      image: "assets/img/kala-thumb.png",
+      href: "kala.html",
+    },
+    {
       title: "JAL Card App",
       subtitle: "Credit card mileage app reconstruction",
       image: "assets/img/jal-thumb.png",
       href: "jal-card-app.html",
     },
+    /* Bumble temporarily hidden from the home page — bumble.html and its
+       images are untouched, so the page still works for anyone with the
+       direct link. To bring the card back, delete this comment wrapper.
     {
       title: "Bumble",
       subtitle: "Japanese localization & UX improvement",
       image: "assets/img/bumble-thumb.png",
       href: "bumble.html",
     },
+    */
     {
       title: "Ethical Pay",
       subtitle: "Payment system for fast fashion brands",

@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kala — Rena Takii</title>
+    <link rel="icon" type="image/png" href="assets/img/star.png" />
+    <link rel="apple-touch-icon" href="assets/img/star.png" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="logo-name" href="index.html" data-site-name>My Name</a>
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav>
+        <ul class="nav-links" data-nav></ul>
+      </nav>
+    </header>
+
+    <main class="content-wrap case-study-page kala-page">
+      <section class="case-study-hero">
+        <div class="case-study-copy">
+          <p class="eyebrow">Personal Project</p>
+          <h1>kala</h1>
+          <p class="lead">
+            An iOS app that saves colors and memories together.
+          </p>
+        </div>
+        <div class="case-study-media">
+          <img
+            src="assets/img/kala-case-study/kala-hero.png"
+            alt="kala app screens showing color palettes"
+          />
+        </div>
+      </section>
+
+      <section class="case-study-section">
+        <div class="case-study-copy">
+          <h2 class="case-study-heading">1. Background</h2>
+          <p>
+            As a designer, I wanted to experimentally learn the following, so
+            I built an iOS app in Claude Code (Sonnet 4.6), based on a UI I
+            designed myself in Figma.
+          </p>
+          <ul class="case-study-list">
+            <li>The process from app design → development</li>
+            <li>
+              The process and obstacles of vibe-coding with generative AI
+              during app development
+            </li>
+            <li>How to translate a UI design into something implementable</li>
+          </ul>
+        </div>
+        <div class="case-study-media case-study-media--pair">
+          <img
+            src="assets/img/kala-case-study/intro-1.png"
+            alt="kala home screen"
+          />
+          <img
+            src="assets/img/kala-case-study/intro-2.png"
+            alt="kala palettes screen"
+          />
+        </div>
+      </section>
+
+      <section class="case-study-section case-study-section--full">
+        <div class="case-study-copy case-study-copy--wide">
+          <h2 class="case-study-heading">2. Inspiration</h2>
+          <p>
+            The purpose of this project was to learn the process of building
+            an app with generative AI, so I decided to freely build something
+            fun to make and use.
+          </p>
+          <p class="subhead"><strong>☁️ Theme: saving color and memory</strong></p>
+          <ul class="case-study-list">
+            <li>
+              A colorful, large-dot patterned rug that's been in my parents'
+              house for as long as I can remember.
+            </li>
+            <li>
+              Brian Wildsmith's picture books, whose vivid use of color left
+              a strong visual impression on me as a child.
+            </li>
+            <li>
+              Memories that resurface through the association of specific
+              colors.
+            </li>
+          </ul>
+          <p>
+            Inspired by these, I designed an app that lets users save
+            memories together with color.
+          </p>
+          <p class="kala-note">
+            The original references here were a rug pattern and two
+            Brian Wildsmith illustrations. Since those are copyrighted, I've
+            left them out of this page rather than reproduce them.
+          </p>
+        </div>
+      </section>
+
+      <section class="case-study-section">
+        <div class="case-study-copy">
+          <h2 class="case-study-heading">3. UI Details</h2>
+          <p class="subhead"><strong>1. Round swatches</strong></p>
+          <p>
+            Users can see the colors they've collected at a glance and
+            visually enjoy how they combine. I used circles extensively to
+            create a sense of unity.
+          </p>
+          <p class="subhead"><strong>2. Glass texture</strong></p>
+          <p>
+            To blend well with Apple's native iOS glass UI, I used the same
+            glass treatment for the bottom nav bar and for motifs that appear
+            throughout the interface.
+          </p>
+          <p class="subhead"><strong>3. Font</strong></p>
+          <p>
+            Fonts like Inter, Roboto, Playfair Display, and Cormorant
+            Garamond are heavily used across software and generative-AI
+            projects. To avoid that same uniform look, I wanted this app to
+            have a signature feel of its own. So I chose a distinctive font
+            and deliberately tightened the letter spacing to emphasize its
+            character.
+          </p>
+        </div>
+        <div class="case-study-media case-study-media--pair">
+          <img
+            src="assets/img/kala-case-study/ui-1.png"
+            alt="kala palette detail screen"
+          />
+          <img
+            src="assets/img/kala-case-study/ui-2.png"
+            alt="kala glass UI keyboard screen"
+          />
+        </div>
+      </section>
+
+      <section class="case-study-section case-study-section--features">
+        <div class="case-study-copy">
+          <h2 class="case-study-heading">4. Features - a</h2>
+          <p>
+            Users can add new palettes or swatches from the "collect" button
+            at the bottom of the screen, or the "+" button on the "palette"
+            screen.
+          </p>
+          <ol class="case-study-list">
+            <li>
+              First, the user picks a favorite photo from their phone's photo
+              library. (left)
+            </li>
+            <li>Tap a favorite color on the photo. (center)</li>
+            <li>
+              A memo can be added in the field below the photo. (center)
+            </li>
+            <li>
+              Tap "save" in the bottom right to save the memo and color.
+              (right)
+            </li>
+          </ol>
+        </div>
+        <div class="case-study-media case-study-media--trio">
+          <img
+            src="assets/img/kala-case-study/feature1-1.png"
+            alt="Choosing a photo in kala"
+          />
+          <img
+            src="assets/img/kala-case-study/feature1-2.png"
+            alt="Picking a color with the dropper and adding a memo in kala"
+          />
+          <img
+            src="assets/img/kala-case-study/feature1-3.png"
+            alt="Color saved to the palette along with the memo in kala"
+          />
+        </div>
+      </section>
+
+      <section class="case-study-section case-study-section--features">
+        <div class="case-study-copy">
+          <h2 class="case-study-heading">5. Features - b</h2>
+          <p>
+            Tapping a swatch on the palette shows the HEX code of the picked
+            color along with any memo you added. Memos can be edited via
+            "edit." (left)
+          </p>
+          <p>
+            Separately from collecting colors, users can also save standalone
+            memos. Tapping "me" in the bottom nav opens a memo screen for
+            jotting down ideas. (center, right)
+          </p>
+        </div>
+        <div class="case-study-media case-study-media--trio">
+          <img
+            src="assets/img/kala-case-study/feature2-1.png"
+            alt="Swatch detail screen with saved color code and memo"
+          />
+          <img
+            src="assets/img/kala-case-study/feature2-2.png"
+            alt="The me page before input in kala"
+          />
+          <img
+            src="assets/img/kala-case-study/feature2-3.png"
+            alt="The me page used for saving ideas and notes"
+          />
+        </div>
+      </section>
+
+      <section class="case-study-section">
+        <div class="case-study-copy">
+          <h2 class="case-study-heading">6. Challenges (1)</h2>
+          <p class="subhead">
+            <strong
+              >Translating the glass texture from Figma into the actual
+              product</strong
+            >
+          </p>
+          <p>
+            In the Figma prototype, I built the bottom nav bar and each
+            button from a glass material, carefully tuning values like
+            refraction, depth, dispersion, and frost.
+          </p>
+          <p>
+            But once I actually built it in the Xcode simulator, I found that
+            this level of fine-tuning currently isn't technically possible
+            due to Apple's constraints. I tried recreating the same design
+            with highly transparent white and light gray instead — but it
+            drifted far from the original prototype and no longer looked like
+            glass.
+          </p>
+          <p>
+            So I adjusted the nav bar's glass texture to follow the look of
+            iOS's native glass UI instead. Since I couldn't reproduce the
+            original's layered glass-on-glass effect, I shrank the nav bar
+            itself, as shown on the right, and removed the layering.
+          </p>
+        </div>
+        <div class="case-study-media case-study-media--pair">
+          <img
+            src="assets/img/kala-case-study/challenge1-1.png"
+            alt="Figma prototype nav bar with circular buttons"
+          />
+          <img
+            src="assets/img/kala-case-study/challenge1-2.png"
+            alt="Simplified nav bar in the actual app"
+          />
+        </div>
+      </section>
+
+      <section class="case-study-section">
+        <div class="case-study-copy">
+          <h2 class="case-study-heading">7. Challenges (2)</h2>
+          <p class="subhead">
+            <strong>Claude Code didn't always follow the prompt exactly</strong>
+          </p>
+          <p>
+            I passed the UI data from Figma to Claude Code and simulated the
+            product in the Simulator based on my prompts. Often, the result
+            didn't match the Figma design exactly as prompted, and it took
+            several attempts before it converged on — or came close to — the
+            original design.
+          </p>
+          <p>
+            For example, even though the selected photo and the overlay
+            element lined up perfectly in Figma, they didn't align in the
+            Simulator, as shown on the left. Fixing this took the most time
+            of anything in the project.
+          </p>
+          <p>
+            After around 10 rounds of prompting, I finally got the photo and
+            overlay to line up, as shown on the right.
+          </p>
+        </div>
+        <div class="case-study-media case-study-media--pair">
+          <img
+            src="assets/img/kala-case-study/challenge2-1.png"
+            alt="Misaligned photo overlay in the Simulator"
+          />
+          <img
+            src="assets/img/kala-case-study/challenge2-2.png"
+            alt="Photo and overlay finally aligned"
+          />
+        </div>
+      </section>
+
+      <section class="case-study-section">
+        <div class="case-study-copy">
+          <h2 class="case-study-heading">8. Reflection</h2>
+          <p>
+            Translating a Figma UI into a product exactly as designed took
+            far more time and effort than I expected.
+          </p>
+          <p>
+            I couldn't say for certain, from this project alone, whether that
+            was a prompting issue or whether the model I used (Claude Code,
+            Sonnet 4.6) simply wasn't well-suited to the task. Using Fable
+            might have let me catch and resolve errors earlier — but since it
+            burns through credits much faster, I held off on using it for
+            this project.
+          </p>
+        </div>
+        <div class="case-study-media case-study-media--pair">
+          <img
+            src="assets/img/kala-case-study/reflection-1.png"
+            alt="A kala palette screen"
+          />
+          <img
+            src="assets/img/kala-case-study/reflection-2.png"
+            alt="Another kala palette screen"
+          />
+        </div>
+      </section>
+
+      <a class="back-link" href="index.html#case-studies"
+        >&larr; Back to case studies</a
+      >
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span class="logo-name" data-site-name>My Name</span>
+        <ul class="nav-links" data-footer-nav></ul>
+      </div>
+    </footer>
+
+    <script src="js/content.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

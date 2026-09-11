@@ -1087,3 +1087,48 @@ a {
     margin-top: 10px;
   }
 }
+
+/* ---------- kala case study ---------- */
+
+.kala-note {
+  font-size: 14px;
+  color: var(--gray);
+  font-style: italic;
+  border-left: 2px solid var(--line);
+  padding-left: 14px;
+  margin-top: 24px;
+}
+
+.case-study-media--trio {
+  gap: 16px;
+}
+
+.case-study-media--trio img {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 220px;
+}
+
+/* Every section on this page fills the viewport height, content centered within it */
+.kala-page .case-study-hero,
+.kala-page .case-study-section {
+  min-height: 100vh;
+  align-items: center;
+}
+
+/* Text column wider, tighter gap to the images (except the 3-image feature sections) */
+.kala-page .case-study-section {
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: 40px;
+}
+
+.kala-page .case-study-section--features {
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+}
+
+@media (max-width: 860px) {
+  .kala-page .case-study-hero,
+  .kala-page .case-study-section {
+    min-height: auto;
+  }
+}
