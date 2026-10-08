@@ -1090,13 +1090,46 @@ a {
 
 /* ---------- kala case study ---------- */
 
-.kala-note {
+.case-study-meta {
+  list-style: none;
+  margin: 28px 0 0;
+  padding: 24px 0 0;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 10px;
+}
+
+.case-study-meta li {
+  display: flex;
+  gap: 12px;
   font-size: 14px;
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.case-study-meta-label {
+  flex: 0 0 80px;
   color: var(--gray);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 12px;
+  padding-top: 1px;
+}
+
+.case-study-meta-value {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.case-study-quote {
+  font-size: 20px;
   font-style: italic;
+  line-height: 1.5;
+  color: var(--ink);
   border-left: 2px solid var(--line);
-  padding-left: 14px;
-  margin-top: 24px;
+  padding-left: 20px;
+  margin: 8px 0 16px;
 }
 
 .case-study-media--trio {
@@ -1124,6 +1157,13 @@ a {
 
 .kala-page .case-study-section--features {
   grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+}
+
+/* Short text-only intro blurb right after the hero — doesn't need a full
+   viewport of centering space above/below it like the other sections */
+.kala-page .case-study-section.case-study-section--overview {
+  min-height: 0;
+  padding: 24px 0 32px;
 }
 
 @media (max-width: 860px) {
