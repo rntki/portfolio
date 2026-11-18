@@ -15,21 +15,51 @@ const SITE_CONTENT = {
   // Top nav + footer nav links. href can point to another page or a #section.
   nav: [
     { label: "Home", href: "index.html" },
-    { label: "Case Studies", href: "case-studies.html" },
-    { label: "About", href: "about.html" },
     { label: "Resume", href: "Rena Takii Resume.pdf" },
     { label: "Contact", href: "mailto:john_doe@example.com" },
     {
       label: "LinkedIn",
       href: "https://www.linkedin.com/in/rena-takii/",
-      icon: "LinkedIn_icon.png",
+      icon: "assets/logos/LinkedIn_icon.png",
     },
   ],
 
-  // The 3 clickable cards under the hero.
+  // Case study project cards shown on the home page.
   cards: [
-    { title: "Case Studies", href: "case-studies.html" },
-    { title: "About Me", href: "about.html" },
+    {
+      title: "JAL Card App",
+      subtitle: "Credit card mileage app reconstruction",
+      image: "assets/img/jal-thumb.png",
+      href: "jal-card-app.html",
+    },
+    {
+      title: "kala",
+      subtitle: "An iOS app that saves colors and memories together",
+      image: "assets/img/kala-thumb.png",
+      href: "kala.html",
+    },
+    /* Bumble temporarily hidden from the home page — bumble.html and its
+       images are untouched, so the page still works for anyone with the
+       direct link. To bring the card back, delete this comment wrapper.
+    {
+      title: "Bumble",
+      subtitle: "Japanese localization & UX improvement",
+      image: "assets/img/bumble-thumb.png",
+      href: "bumble.html",
+    },
+    */
+    {
+      title: "Ethical Pay",
+      subtitle: "Payment system for fast fashion brands",
+      image: "assets/img/ep-thumb.png",
+      href: "ep.html",
+    },
+    {
+      title: "Mono",
+      subtitle: "Low-stimulation mobile phone design",
+      image: "assets/img/mono-thumb.png",
+      href: "mono.html",
+    },
   ],
 
   // "I have worked at..." logos — fills left-to-right, top-to-bottom in a

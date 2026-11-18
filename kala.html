@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kala — Rena Takii</title>
+    <link rel="icon" type="image/png" href="assets/img/star.png" />
+    <link rel="apple-touch-icon" href="assets/img/star.png" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="logo-name" href="index.html" data-site-name>My Name</a>
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav>
+        <ul class="nav-links" data-nav></ul>
+      </nav>
+    </header>
+
+    <main class="content-wrap case-study-page">
+      <section class="case-study-hero">
+        <div class="case-study-copy">
+          <p class="eyebrow">Personal Project</p>
+          <h1>kala</h1>
+          <p class="lead">
+            An iOS app for saving colors and the memories associated with
+            them.
+          </p>
+          <ul class="case-study-meta">
+            <li>
+              <span class="case-study-meta-label">Role: </span>
+              <span class="case-study-meta-value"
+                >Product Designer · UI/UX Designer · Developer</span
+              >
+            </li>
+            <li>
+              <span class="case-study-meta-label">Platform: </span>
+              <span class="case-study-meta-value">iOS</span>
+            </li>
+            <li>
+              <span class="case-study-meta-label">Tools: </span>
+              <span class="case-study-meta-value"
+                >Figma · Claude Code · Xcode</span
+              >
+            </li>
+            <li>
+              <span class="case-study-meta-label">Timeline: </span>
+              <span class="case-study-meta-value">2026</span>
+            </li>
+          </ul>
+        </div>
+        <div class="case-study-media">
+          <img
+            src="assets/img/kala-case-study/kala-hero.png"
+            alt="kala app screens showing color palettes"
+          />
+        </div>
+      </section>
+
+      <section class="case-study-section case-study-section--tldr">
+        <div class="case-study-copy">
+          <h2 class="case-study-heading">TL;DR</h2>
+
+          <p class="subhead"><strong>Problem</strong></p>
+          <p>
+            I wanted to take a UI I designed in Figma all the way to a
+            shipped iOS app — not stop at a static prototype.
+          </p>
+
+          <p class="subhead"><strong>Why it's a problem</strong></p>
+          <p>
+            A polished Figma file hides the platform's constraints: effects
+            and interactions that look right in design often can't be
+            reproduced on iOS. Which parts of a design are essential, and
+            which have to adapt, only becomes clear once you actually build
+            it.
+          </p>
+
+          <p class="subhead"><strong>Solution</strong></p>
+          <p>
+            I designed <strong>kala</strong> in Figma and built it in SwiftUI,
+            using <strong>Claude Code</strong> to assist implementation while I
+            made the design decisions. Wherever iOS couldn't match the
+            prototype, I adapted the design deliberately and shipped a working
+            app.
+          </p>
+        </div>
+        <div class="case-study-media case-study-media--video">
+          <video
+            src="assets/video/kala-all.mp4"
+            autoplay
+            loop
+            muted
+            playsinline
+            preload="metadata"
+            aria-label="Screen recording of the kala app in use"
+          ></video>
+        </div>
+      </section>
+
+      <section class="case-study-section case-study-section--full">
+        <div class="case-study-copy case-study-copy--wide">
+          <h2 class="case-study-heading">01 — The Idea</h2>
+          
+          <p>
+            The idea for <strong>kala</strong> came from the way certain colors can
+            unexpectedly bring back memories.
+          </p>
+          <p>
+            Growing up, at my family home, there was a colorful, large-patterned
+            carpet. I also remember the vivid colors of
+            children's books by <strong>Brian Wildsmith</strong> that I read
+            when I was young.
+          </p>
+          <p>
+            These experiences made me think about how a particular
+            color / combination of colors can become associated with
+            memories.
+          </p>
+          <p>This led to a simple question:</p>
+          <p class="case-study-quote">
+            What if you could save a memory together with the color that
+            reminds you of it?
+          </p>
+          <p>
+            <strong>kala</strong> allows users to select a color from a photograph and attach a short note to it.
+             It enables them to build a personal collection of
+            colors and memories over time.
+          </p>
+        </div>
+      </section>
+
+      <section class="case-study-section">
+        <div class="case-study-copy">
+          <h2 class="case-study-heading">02 — Design Direction</h2>
+          
+          <p class="subhead"><strong>Circular swatches</strong></p>
+          <p>
+            Saved colors are represented as circular swatches. The shape
+            is consistent throughout the app, 
+            allowing collections of colors to be saved like a visual
+            archive. I wanted to make browsing to feel enjoyable.
+          </p>
+         
+          <p class="subhead"><strong>Glass UI</strong></p>
+          <p>
+            I used translucent glass elements for navigation. The intention was to allow interface elements to sit
+            above photographs without completely obscuring the content
+            underneath.
+          </p>
+          
+          <p class="subhead"><strong>Typography</strong></p>
+          <p>
+            The goal for <strong>kala</strong> was to have a recognizable personality.
+            Instead of relying on frequently used typefaces such as Inter or
+            Roboto, I selected more distinctive typography and intentionally
+            tightened the letter spacing.
+          </p>
+          
+        </div>
+        <div class="case-study-media case-study-media--pair">
+          <img
+            src="assets/img/kala-case-study/ui-1.png"
+            alt="kala palette detail screen"
+          />
+          <img
+            src="assets/img/kala-case-study/ui-2.png"
+            alt="kala glass UI keyboard screen"
+          />
+        </div>
+      </section>
+
+      <section class="case-study-section">
+        <div class="case-study-copy">
+          <h2 class="case-study-heading">03 — Core Interaction</h2>
+          <p>
+            Users can create a new palette or swatch from the
+            <strong>collect</strong> screen or by tapping
+            <strong>+</strong> in the <strong>palette</strong> screen.
+          </p>
+          <p class="subhead"><strong>01: Select a photo</strong><br>
+          The user chooses a photo from their library.</p>
+          <p class="subhead"><strong>02: Pick a color</strong><br>
+          The user taps on the photo to select a color.</p>
+          <p class="subhead"><strong>03: Add a memory</strong><br>
+          A short note can be attached.</p>
+          <p class="subhead"><strong>04: Save</strong><br>
+          <p>The color and its associated memory are saved together.</p>
+             
+        </div>
+        <div class="case-study-media case-study-media--video">
+          <video
+            src="assets/video/kala-new-color.mp4"
+            autoplay
+            loop
+            muted
+            playsinline
+            preload="metadata"
+            aria-label="Screen recording of picking a color and saving it in kala"
+          ></video>
+        </div>
+      </section>
+
+      <section class="case-study-section">
+        <div class="case-study-copy">
+          <h2 class="case-study-heading">04 — From Figma to iOS</h2>
+          <p class="subhead">
+            <strong>Translating the glass UI into a real product</strong>
+          </p>
+          <p>
+            One of the biggest challenges was translating the glass UI from
+            the Figma prototype into a functioning iOS interface.
+          
+            During implementation, I found that the glass effect I set on Figma could not be
+            translated on the app because of the iOS constraints.
+          
+            Although I first tested a translucent white and
+            light gray instead of glass UI, this changed the visual relationship
+            between the UI and the underlying content too much.
+          
+            Instead of forcing the implementation to match the Figma
+            prototype exactly, I reconsidered which aspects of the original
+            design were essential.
+          
+            I reduced the size of the navigation bar and removed the
+            overlapping glass layers.
+          </p>
+          <p>
+            The final implementation therefore differs from the original
+            prototype, but it still makes the photo and color stand out while
+              maintaining a lightweight interaction layer.</strong
+            >
+          </p>
+          <p class="subhead"><strong>Design takeaway</strong></p>
+       
+          <p>
+            A design is not finished when it looks right in Figma. It
+              needs to work within the constraints of the platform it is
+              designed for.
+          It is knowing
+            <strong
+              >which parts of the design are essential to the experience and
+              which can be adapted.</strong
+            >
+          </p>
+        </div>
+        <div class="case-study-media case-study-media--pair">
+          <img
+            src="assets/img/kala-case-study/challenge1-1.png"
+            alt="Figma prototype nav bar with circular buttons"
+          />
+          <img
+            src="assets/img/kala-case-study/challenge1-2.png"
+            alt="Simplified nav bar in the actual app"
+          />
+        </div>
+      </section>
+
+      <section class="case-study-section">
+        <div class="case-study-copy">
+          <h2 class="case-study-heading">
+            05 — Working with AI During Implementation
+          </h2>
+          <p>
+          One recurring challenge while using Claude Code to translate the Figma design into an app was maintaining the original design.
+            
+          </p>
+          
+            
+          <p>
+            For example, the selected photo and its overlay 
+            were aligned in Figma, but initially rendered with a
+            offset in the simulator.
+          </p>
+          <p>
+            I compared the implementation against the original design,
+            and iterated on the implementation
+            until the intended design was obtained.
+          </p>
+          <p>This process highlighted an important distinction that although
+          AI can accelerate implementation, it does not eliminate
+              the need for design judgment.<p/>
+          
+        </div>
+        <div class="case-study-media case-study-media--pair">
+          <img
+            src="assets/img/kala-case-study/challenge2-1.png"
+            alt="Misaligned photo overlay in the Simulator"
+          />
+          <img
+            src="assets/img/kala-case-study/challenge2-2.png"
+            alt="Photo and overlay finally aligned"
+          />
+        </div>
+      </section>
+
+      <section class="case-study-section">
+        <div class="case-study-copy">
+          <h2 class="case-study-heading">06 — Reflection</h2>
+        
+          <p>
+            The biggest lesson was that
+            <strong
+              >designing for a platform is different from designing a static
+              interface</strong
+            >.
+          </p>
+          <p>
+            Some effects in Figma could not be reproduced
+          in iOS. Rather than treating those limitations as
+          technical problems, I had to reconsider the design and
+            decide what needed to be kept.
+          </p>
+          <p>
+            I also learned that AI-assisted development works best as an
+            iterative process. The implementation could be generated
+            quickly, but evaluating the result still required human judgment.
+          </p>
+          <p class="subhead"><strong>What I would do next</strong></p>
+          
+          <p>
+            So far, the product concept and visual language have primarily
+            been evaluated through my own perspective. I would want to test
+            whether people actually find
+            <strong>collecting colors and attaching memories to them</strong>
+            meaningful and enjoyable.
+          </p>
+          <p>
+            That would help determine which parts of the experience are
+            genuinely useful, rather than simply visually appealing.
+          </p>
+        </div>
+        <div class="case-study-media case-study-media--video">
+          <video
+            src="assets/video/kala-new-palette.mp4"
+            autoplay
+            loop
+            muted
+            playsinline
+            preload="metadata"
+            aria-label="Screen recording of creating a new palette in kala"
+          ></video>
+        </div>
+      </section>
+
+      <a class="back-link" href="index.html#case-studies"
+        >&larr; Back to case studies</a
+      >
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span class="logo-name" data-site-name>My Name</span>
+        <ul class="nav-links" data-footer-nav></ul>
+      </div>
+    </footer>
+
+    <script src="js/content.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

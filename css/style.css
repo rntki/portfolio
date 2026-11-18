@@ -17,24 +17,27 @@
   box-sizing: border-box;
 }
 
-/* ---------- Cursor star trail ---------- */
+/* ---------- Cursor stardust trail ---------- */
 
-.cursor-star {
+.stardust-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Each particle is a tiny black glyph — dots, little plus marks, sparkles —
+   kept small and faint for a subtle dreamcore trail. */
+.stardust {
   position: fixed;
   top: 0;
   left: 0;
-  width: 15px;
-  height: 15px;
   pointer-events: none;
   user-select: none;
-  z-index: 9999;
-  opacity: 0;
-  transition: opacity 0.2s var(--ease);
-  will-change: transform;
-}
-
-.cursor-star.is-visible {
-  opacity: 1;
+  will-change: transform, opacity;
+  color: #000;
+  line-height: 1;
+  font-weight: 400;
 }
 
 html {
@@ -109,6 +112,47 @@ a {
 
 .nav-links a:hover {
   color: var(--ink);
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 5px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--ink);
+  border-radius: 2px;
+  transition:
+    transform 0.25s var(--ease),
+    opacity 0.25s var(--ease),
+    width 0.25s var(--ease);
+}
+
+.nav-toggle.is-open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+  width: 100%;
+}
+
+.nav-toggle.is-open span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle.is-open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+  width: 100%;
 }
 
 /* ---------- Hero ---------- */
@@ -231,13 +275,16 @@ a {
   letter-spacing: -0.02em;
 }
 
-.worked-at-rec,
+.worked-at-rec {
+  padding: 40px 0 40px;
+}
+
 .what-people-say {
   padding: 40px 0 120px;
 }
 
 .wa-label {
-  margin-bottom: 96px;
+  margin-bottom: 20px;
 }
 
 .logo-grid {
@@ -469,9 +516,8 @@ a {
   margin: var(--site-gap) 0 calc(var(--site-gap) * 2);
 }
 
-/* Give the projects section the same bottom padding as About page */
 .project-cards {
-  padding-bottom: 120px;
+  padding-bottom: 40px;
 }
 
 .project-cards .back-link {
@@ -565,11 +611,21 @@ a {
 
 .about-panel {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 360px;
+  grid-template-columns: minmax(0, 1fr) 300px;
   gap: 100px;
   align-items: start;
   padding: var(--page-top) 0 120px;
   min-height: 60vh;
+}
+
+/* This is now the first section on the home page, so it needs to clear the header itself. */
+.about-panel--home {
+  padding: 80px 0 60px; /* space above/below the hero section — adjust these two numbers to taste */
+  min-height: auto;
+}
+
+.about-panel--home .about-image {
+  margin-top: 60px; /* sits a little higher than the first paragraph, closer to the heading */
 }
 
 .about-copy {
@@ -634,13 +690,21 @@ a {
 }
 
 .case-study-hero {
-  padding: var(--page-top) 0 80px; /* matches the top spacing used on about.html etc. */
+  padding: 56px 0 60px; /* space above/below the hero — kept tight so it fits one viewport height */
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr);
 }
 
 .case-study-hero .case-study-media img {
   max-width: 100%;
   object-fit: contain;
+}
+
+.case-study-hero .case-study-media--pair img {
+  max-width: 220px;
+}
+
+.case-study-media.case-study-media--small img {
+  max-width: 220px;
 }
 
 .case-study-section.section--reverse .case-study-copy {
@@ -663,6 +727,52 @@ a {
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
 }
 
+/* Text-only variant for case studies without accompanying images */
+.case-study-hero--full,
+.case-study-section--full {
+  grid-template-columns: 1fr;
+}
+
+.case-study-hero--full {
+  padding: var(--page-top) 0 80px; /* matches the top spacing used on about.html etc. */
+}
+
+.case-study-hero--full .case-study-copy,
+.case-study-section--full .case-study-copy {
+  max-width: 720px;
+  width: 100%;
+  margin: 0;
+}
+
+.case-study-copy.case-study-copy--wide {
+  max-width: none;
+}
+
+.case-study-copy.case-study-copy--900 {
+  max-width: 900px;
+}
+
+/* Wider media column for sections with an image grid instead of a single image */
+.case-study-section--grid-media {
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr);
+}
+
+.case-study-section--grid-media.section--reverse {
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.1fr);
+}
+
+/* Editorial two-column text flow */
+.case-study-columns {
+  column-count: 2;
+  column-gap: 56px;
+}
+
+.case-study-columns p,
+.case-study-columns ul,
+.case-study-columns li {
+  break-inside: avoid;
+}
+
 .eyebrow,
 .section-index {
   display: inline-block;
@@ -682,12 +792,23 @@ a {
   letter-spacing: -0.02em;
 }
 
+.case-study-copy h1 .h1-small {
+  font-size: 0.7em;
+}
+
 .case-study-copy h2 {
   margin: 0 0 28px;
   font-size: clamp(24px, 3.4vw, 28px);
   font-weight: 400;
   line-height: 1.08;
   letter-spacing: -0.02em;
+}
+
+/* Larger section heading variant — still regular weight, no italics */
+.case-study-copy h2.case-study-heading {
+  font-size: clamp(28px, 4vw, 36px);
+  font-weight: 400;
+  font-style: normal;
 }
 
 .case-study-copy p:not(.eyebrow):not(.section-index),
@@ -755,11 +876,146 @@ a {
 
 .case-study-media--pair img {
   max-width: 200px;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* Before/after screenshot pair, placed inline right after the paragraph it illustrates */
+.case-study-image-pair {
+  display: flex;
+  gap: 24px;
+  margin: 24px 0 48px;
+}
+
+.case-study-image-pair img {
+  flex: 1;
+  width: 50%;
+  height: auto;
+  display: block;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  box-shadow: 0 24px 60px -34px rgba(0, 0, 0, 0.28);
+}
+
+.case-study-image-pair.case-study-image-pair--small img {
+  flex: none;
+  width: 210px;
+  max-width: 210px;
+}
+
+/* Before & After: mile redeem on the left, flight choosing on the right */
+.before-after-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 48px;
+  row-gap: 16px;
+  margin-top: 24px;
+}
+
+.before-after-grid .case-study-image-pair {
+  margin: 0;
+}
+
+/* The source order is paragraph → its screenshots → paragraph → its
+   screenshots, so it reads in the right order when this collapses to one
+   column on mobile. On the web the grid is explicitly placed to keep the
+   original arrangement: both paragraphs on the top row, both screenshot
+   pairs on the row beneath them. */
+@media (min-width: 901px) {
+  .before-after-grid > :nth-child(1) {
+    grid-area: 1 / 1;
+  }
+
+  .before-after-grid > :nth-child(2) {
+    grid-area: 2 / 1;
+  }
+
+  .before-after-grid > :nth-child(3) {
+    grid-area: 1 / 2;
+  }
+
+  .before-after-grid > :nth-child(4) {
+    grid-area: 2 / 2;
+  }
+}
+
+@media (max-width: 900px) {
+  /* minmax(0, 1fr) rather than 1fr: a bare 1fr keeps an automatic
+     min-content floor, and the screenshots inside are wide enough to push
+     the column past the screen. */
+  .before-after-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+  }
+
+  .before-after-grid > * {
+    min-width: 0;
+  }
+}
+
+.case-study-media--stack {
+  flex-direction: column;
+  gap: 24px;
+}
+
+.case-study-media--grid4 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  width: 100%;
+}
+
+.case-study-media--grid4 img {
+  max-width: none;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  border: none;
+  box-shadow: none;
+  border-radius: 16px;
+}
+
+/* Keep clockwise order (top-left, top-right, bottom-right, bottom-left)
+   despite the default row-major grid auto-placement. */
+.case-study-media--grid4 img:nth-child(3) {
+  grid-row: 2;
+  grid-column: 2;
+}
+
+.case-study-media--grid4 img:nth-child(4) {
+  grid-row: 2;
+  grid-column: 1;
+}
+
+/* Full-bleed standalone images between sections */
+.case-study-image-band {
+  padding: 40px 0 80px;
+}
+
+.case-study-image-band img,
+.case-study-image-group img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  box-shadow: 0 24px 60px -34px rgba(0, 0, 0, 0.28);
+}
+
+.case-study-image-group {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 40px 0 80px;
 }
 
 /* ---------- Responsive ---------- */
 
-@media (max-width: 860px) {
+/* Single mobile breakpoint for the whole site: 900px.
+   Anything wider keeps the desktop layout exactly as-is. */
+@media (max-width: 900px) {
   .case-study-hero,
   .case-study-section {
     grid-template-columns: 1fr;
@@ -774,6 +1030,10 @@ a {
 
   .case-study-media img {
     max-width: 100%;
+  }
+
+  .case-study-columns {
+    column-count: 1;
   }
 
   .worked-at-rec {
@@ -798,7 +1058,7 @@ a {
   }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 900px) {
   .cards {
     grid-template-columns: 1fr;
   }
@@ -807,8 +1067,40 @@ a {
     padding-top: 24px;
   }
 
+  .nav-toggle {
+    display: flex;
+  }
+
+  .site-header nav {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-12px);
+    transition:
+      opacity 0.25s var(--ease),
+      transform 0.25s var(--ease);
+    z-index: 1000;
+  }
+
+  .site-header nav.is-open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
   .nav-links {
-    gap: 16px;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .nav-links a {
+    font-size: 22px;
   }
 
   .hero {
@@ -828,5 +1120,506 @@ a {
     grid-row: auto;
     justify-self: center;
     margin-top: 10px;
+  }
+}
+
+/* ---------- kala case study ---------- */
+
+.case-study-meta {
+  list-style: none;
+  margin: 28px 0 0;
+  padding: 24px 0 0;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 10px;
+}
+
+.case-study-meta li {
+  display: flex;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.case-study-meta-label {
+  flex: 0 0 80px;
+  color: var(--gray);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 12px;
+  padding-top: 1px;
+}
+
+.case-study-meta-value {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.case-study-quote {
+  font-size: 20px;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--ink);
+  border-left: 2px solid var(--line);
+  padding-left: 20px;
+  margin: 8px 0 16px;
+}
+
+.case-study-media--trio {
+  gap: 16px;
+}
+
+.case-study-media--trio img {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 220px;
+}
+
+/* Portrait app-demo videos — sit on the media side like a phone screen,
+   same rounded/bordered/shadowed treatment as the screenshot images. */
+.case-study-media--video video {
+  width: 100%;
+  max-width: 260px;
+  height: auto;
+  display: block;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  box-shadow: 0 24px 60px -34px rgba(0, 0, 0, 0.28);
+}
+
+/* Embedded interactive prototype (e.g. a Figma embed) — fills the media
+   column at a 16:9 ratio with the same quiet border treatment. */
+.case-study-media--embed {
+  align-self: start;
+}
+
+.case-study-media--embed .figma-embed {
+  width: 100%;
+  max-width: 560px;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  display: block;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+
+/* Every section on this page fills the viewport height, content centered within it.
+   The hero is excluded so its top spacing matches the other case-study pages. */
+.kala-page .case-study-section {
+  min-height: 100vh;
+  align-items: center;
+}
+
+/* Text column wider, tighter gap to the images (except the 3-image feature sections) */
+.kala-page .case-study-section {
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: 40px;
+}
+
+.kala-page .case-study-section--features {
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+}
+
+/* Short text-only intro blurb right after the hero — doesn't need a full
+   viewport of centering space above/below it like the other sections */
+.kala-page .case-study-section.case-study-section--overview {
+  min-height: 0;
+  padding: 24px 0 32px;
+}
+
+@media (max-width: 900px) {
+  .kala-page .case-study-section {
+    min-height: auto;
+  }
+}
+
+/* =========================================================
+   MOBILE LAYOUT — 900px and below
+   ---------------------------------------------------------
+   Nothing in here fires above 900px, so the web layout is
+   untouched. The shape of the mobile page:
+
+   - The page sits in one 80vw column, centred.
+   - Sections that put text beside pictures on the web stack
+     instead: text first (the full 80vw), pictures after.
+   - Picture rows break out a little wider than the text
+     column and scroll sideways, so a pair or a trio of phone
+     screenshots stays side by side on one screen.
+   ========================================================= */
+
+@media (max-width: 900px) {
+  :root {
+    /* 10vw each side leaves an 80vw content column. */
+    --mobile-pad: 10vw;
+    /* Picture rows break out to 92vw: (80vw * 1.15) = 92vw,
+       pulled back by (80vw * 0.075) = 6vw on each side.
+       Using % of the column rather than vw keeps a desktop
+       scrollbar from pushing the page sideways when you
+       preview this by resizing a browser window. */
+    --bleed-width: 115%;
+    --bleed-pull: -7.5%;
+  }
+
+  /* ---------- Page shell ---------- */
+
+  /* padding-inline, not the `padding` shorthand: `.case-study-page` and the
+     section rules below both set `padding` for their vertical spacing, and a
+     shorthand there would reset this inset back to zero. */
+  .content-wrap,
+  .site-header,
+  .site-footer .wrap {
+    padding-inline: var(--mobile-pad);
+  }
+
+  /* `.wrap` nested inside the content column (the project card grid) would
+     otherwise be inset twice. */
+  .content-wrap .wrap {
+    padding-inline: 0;
+  }
+
+  /* ---------- Footer nav: one tight row at the bottom ---------- */
+
+  /* The shared `.nav-links` mobile rule turns the header menu into a
+     vertical list. The footer nav opts back out of that: it stays a
+     single horizontal row, LinkedIn icon included. */
+  .site-footer {
+    padding: 24px 0 28px;
+  }
+
+  .site-footer .wrap {
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .site-footer .nav-links {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .site-footer .nav-links a {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+  }
+
+  .site-footer .nav-links .nav-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* ---------- Home: intro text first, photo after ---------- */
+
+  .about-panel {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 64px 0 56px;
+    min-height: auto;
+  }
+
+  .about-copy {
+    max-width: none;
+  }
+
+  .about-copy h1,
+  .page-body h1 {
+    margin-bottom: 32px;
+  }
+
+  /* The desktop offset that lines the photo up with the first
+     paragraph makes no sense once the photo is below the text. */
+  .about-image,
+  .about-panel--home .about-image {
+    margin-top: 0;
+  }
+
+  /* ---------- Home: worked-at marquee ---------- */
+
+  .worked-at-rec {
+    padding: 24px 0 32px;
+  }
+
+  .section-label {
+    font-size: 28px;
+  }
+
+  .logo-track {
+    gap: 40px;
+  }
+
+  .logo-item {
+    min-width: 140px;
+  }
+
+  .logo-item img {
+    max-height: 56px;
+  }
+
+  .logo-mask::before,
+  .logo-mask::after {
+    width: 36px;
+  }
+
+  /* ---------- Home: recommendation cards stack vertically ---------- */
+
+  /* One per row, each filling the 80vw column and growing as tall as
+     its quote needs. The first card, then the second below it. */
+  .what-people-say {
+    padding: 24px 0 72px;
+  }
+
+  .recommendations {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .recommendation-item,
+  .rec-card {
+    width: 100%;
+    height: auto;
+  }
+
+  .rec-card {
+    padding: 22px;
+  }
+
+  .rec-quote-block {
+    padding: 10px 16px 0;
+  }
+
+  .quote-mark-open,
+  .quote-mark-close {
+    font-size: 44px;
+  }
+
+  .connect-section {
+    padding: 0 0 72px;
+  }
+
+  /* ---------- Case studies: text first, pictures after ---------- */
+
+  /* Every two-column variant collapses to one. Listed out in full because
+     several of them (`--grid-media.section--reverse`, `--media-large
+     .section--reverse`) are two-class selectors that would otherwise outrank
+     a plain `.case-study-section` override. */
+  .case-study-hero,
+  .case-study-hero--full,
+  .case-study-section,
+  .case-study-section--split,
+  .case-study-section--full,
+  .case-study-section--media-large,
+  .case-study-section--media-large.section--reverse,
+  .case-study-section--grid-media,
+  .case-study-section--grid-media.section--reverse,
+  .kala-page .case-study-section,
+  .kala-page .case-study-section--features {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding-block: 48px;
+    min-height: auto;
+    align-items: start;
+  }
+
+  .case-study-hero {
+    padding-block: 32px 48px;
+  }
+
+  .case-study-hero--full,
+  .kala-page .case-study-section--overview {
+    padding-block: 32px 40px;
+  }
+
+  /* Text always leads, pictures always follow — including in the
+     sections the web layout flips (`.section--reverse`). */
+  .case-study-section .case-study-copy,
+  .case-study-section.section--reverse .case-study-copy,
+  .case-study-hero .case-study-copy {
+    order: 1;
+  }
+
+  .case-study-section .case-study-media,
+  .case-study-section.section--reverse .case-study-media,
+  .case-study-hero .case-study-media {
+    order: 2;
+  }
+
+  .case-study-copy,
+  .case-study-hero--full .case-study-copy,
+  .case-study-section--full .case-study-copy,
+  .case-study-copy--900 {
+    max-width: none;
+    width: 100%;
+    /* Grid items default to min-width:auto, which lets a wide child (the
+       before/after screenshot pairs) push the column past the screen. */
+    min-width: 0;
+  }
+
+  .case-study-page {
+    padding-block: 0 72px;
+  }
+
+  .case-study-meta-label {
+    flex: 0 0 68px;
+  }
+
+  /* ---------- Case studies: picture rows ---------- */
+
+  /* A sideways scroller. Pairs and trios are sized to fit inside one
+     screen, so it only actually scrolls if a section has more images
+     than that. */
+  .case-study-media {
+    display: flex;
+    margin-top: 4px;
+    gap: 12px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+
+  .case-study-media::-webkit-scrollbar {
+    display: none;
+  }
+
+  .case-study-media > img {
+    scroll-snap-align: center;
+  }
+
+  /* Single-image sections stay inside the text column. The desktop max-widths
+     still cap them, so a lone phone screenshot doesn't blow up on a tablet. */
+  .case-study-media img {
+    width: 100%;
+    border-radius: 16px;
+  }
+
+  .case-study-media.case-study-media--small img {
+    max-width: 320px;
+  }
+
+  .case-study-media--stack {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Multi-image rows break out wider than the text column so the
+     screenshots don't end up postage-stamp sized. */
+  .case-study-media--pair,
+  .case-study-media--trio,
+  .case-study-media--grid4 {
+    width: var(--bleed-width);
+    margin-inline: var(--bleed-pull);
+  }
+
+  /* Two vertical screenshots: equal width, tops aligned, both on screen. */
+  .case-study-media--pair {
+    justify-content: center;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  /* They share the row equally, so equal width = equal height. The cap stops
+     them ballooning on a wide phone/small tablet. */
+  .case-study-media--pair img,
+  .case-study-hero .case-study-media--pair img,
+  .case-study-media--small.case-study-media--pair img {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+    max-width: 320px;
+  }
+
+  /* Three vertical screenshots (kala): all three side by side, equal size. */
+  .case-study-media--trio {
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .case-study-media--trio img {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+    max-width: 240px;
+    border-radius: 12px;
+  }
+
+  /* The 2x2 research grids stay a grid, just wider. */
+  .case-study-media--grid4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    overflow: visible;
+  }
+
+  .case-study-media--grid4 img {
+    border-radius: 12px;
+  }
+
+  /* ---------- Case studies: before/after pairs inside the copy ---------- */
+
+  .case-study-image-pair {
+    width: var(--bleed-width);
+    margin-inline: var(--bleed-pull);
+    justify-content: center;
+    align-items: flex-start;
+    gap: 12px;
+    margin-block: 16px 32px;
+  }
+
+  .case-study-image-pair img,
+  .case-study-image-pair.case-study-image-pair--small img {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+    max-width: 320px;
+    border-radius: 16px;
+  }
+
+  /* Repeats margin-inline at this specificity because the desktop rule for
+     this pair uses the `margin` shorthand and would otherwise win. */
+  .before-after-grid .case-study-image-pair {
+    margin-block: 8px 0;
+    margin-inline: var(--bleed-pull);
+  }
+
+  /* ---------- Case studies: full-width image bands ---------- */
+
+  .case-study-image-band {
+    padding: 24px 0 48px;
+  }
+
+  .case-study-image-group {
+    gap: 20px;
+    padding: 24px 0 48px;
+  }
+
+  .case-study-image-band img,
+  .case-study-image-group img {
+    border-radius: 16px;
+  }
+
+  /* ---------- Project cards ---------- */
+
+  .projects-grid {
+    gap: calc(var(--site-gap) * 1.5);
+  }
+
+  .project-card {
+    height: auto;
+  }
+
+  .project-card .card-media {
+    flex: none;
+    aspect-ratio: 3 / 2;
+  }
+
+  .project-card .card-content {
+    flex: none;
   }
 }

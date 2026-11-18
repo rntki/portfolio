@@ -30,11 +30,17 @@ function renderHomepage() {
   const cardsEl = document.querySelector("[data-cards]");
   if (cardsEl) {
     cardsEl.innerHTML = SITE_CONTENT.cards
-      .map((card, i) => {
-        const href = encodeURI(card.href);
-        const isPdf = card.href.toLowerCase().endsWith(".pdf");
-        return `<a class="card reveal" style="--delay:${(0.1 + i * 0.2).toFixed(2)}s" href="${href}"${isPdf ? " download" : ""}>${card.title}</a>`;
-      })
+      .map(
+        (card) => `<a class="project-card" href="${encodeURI(card.href)}">
+        <div class="card-media">
+          <img src="${card.image}" alt="${card.title}" />
+        </div>
+        <div class="card-content">
+          <div class="card-title">${card.title}</div>
+          <div class="card-subtitle">${card.subtitle}</div>
+        </div>
+      </a>`,
+      )
       .join("");
   }
 
@@ -136,49 +142,149 @@ function initScrollReveal() {
   items.forEach((el) => observer.observe(el));
 }
 
-function initCursorStar() {
+function initStardustTrail() {
   // Skip on touch devices — there's no hovering cursor to follow.
   if (!window.matchMedia("(pointer: fine)").matches) return;
+  // Respect users who've asked for reduced motion.
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-  const star = document.createElement("img");
-  star.src = "assets/img/star.png";
-  star.alt = "";
-  star.className = "cursor-star";
-  document.body.appendChild(star);
+  const layer = document.createElement("div");
+  layer.className = "stardust-layer";
+  document.body.appendChild(layer);
+
+  // Exactly the glyphs from ". ܁₊ ⊹ . ܁˖ . ܁" — weighted like that string
+  // (mostly dots, with the odd plus/sparkle).
+  const GLYPHS = [".", ".", ".", "܁", "܁", "܁", "₊", "⊹", "˖"];
+
+  const particles = [];
+  const MAX = 60; // hard cap so fast movement can't flood the DOM
+  const SPAWN_GAP = 8; // px of cursor travel between spawns → a tight trail that hugs the cursor
 
   let mouseX = -100;
   let mouseY = -100;
-  let starX = mouseX;
-  let starY = mouseY;
-  let started = false;
+  let lastX = mouseX;
+  let lastY = mouseY;
+  let haveMouse = false;
+
+  function spawn(x, y) {
+    // A single small, upright, solid-black glyph that briefly trails the cursor.
+    const el = document.createElement("span");
+    el.className = "stardust";
+    el.textContent = GLYPHS[(Math.random() * GLYPHS.length) | 0];
+
+    const size = 6 + Math.random() * 6; // 6–12px glyphs
+    el.style.fontSize = size + "px";
+    layer.appendChild(el);
+
+    // Barely any drift, so each glyph stays on the path it was dropped on and
+    // the trail hugs the cursor.
+    const angle = Math.random() * Math.PI * 2;
+    const speed = 0.03 + Math.random() * 0.1;
+    particles.push({
+      el,
+      x,
+      y,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      life: 0,
+      ttl: 550 + Math.random() * 350, // short-ish life → small lag, tight following
+    });
+
+    // Enforce the cap by retiring the oldest particle early.
+    if (particles.length > MAX) {
+      particles.shift().el.remove();
+    }
+  }
 
   window.addEventListener("mousemove", (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
-    if (!started) {
-      // Snap to the cursor on the very first move instead of drifting in from off-screen.
-      starX = mouseX;
-      starY = mouseY;
-      star.classList.add("is-visible");
-      started = true;
+    if (!haveMouse) {
+      lastX = mouseX;
+      lastY = mouseY;
+      haveMouse = true;
+    }
+    const dx = mouseX - lastX;
+    const dy = mouseY - lastY;
+    const dist = Math.hypot(dx, dy);
+    if (dist >= SPAWN_GAP) {
+      // Drop a few specks along the path travelled since the last spawn so
+      // fast movement still leaves a continuous trail rather than gaps.
+      const steps = Math.min(4, Math.floor(dist / SPAWN_GAP));
+      for (let i = 1; i <= steps; i++) {
+        const t = i / steps;
+        spawn(
+          lastX + dx * t + (Math.random() - 0.5) * 6,
+          lastY + dy * t + (Math.random() - 0.5) * 6,
+        );
+      }
+      lastX = mouseX;
+      lastY = mouseY;
     }
   });
 
-  document.addEventListener("mouseleave", () => {
-    star.classList.remove("is-visible");
-  });
-  document.addEventListener("mouseenter", () => {
-    if (started) star.classList.add("is-visible");
-  });
-
-  function animate() {
-    // Ease toward the cursor each frame for a smooth, slightly delayed trail.
-    starX += (mouseX - starX) * 0.12;
-    starY += (mouseY - starY) * 0.12;
-    star.style.transform = `translate(${starX}px, ${starY}px) translate(-50%, -50%)`;
+  let last = performance.now();
+  function animate(now) {
+    const dt = now - last;
+    last = now;
+    const step = dt / 16.67; // normalise motion to ~60fps regardless of frame rate
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.life += dt;
+      const k = p.life / p.ttl; // 0 → 1 across its lifetime
+      if (k >= 1) {
+        p.el.remove();
+        particles.splice(i, 1);
+        continue;
+      }
+      p.x += p.vx * step;
+      p.y += p.vy * step;
+      // Solid black for most of its life, then a slow, soft fade-out so it
+      // dissolves rather than popping off. Upright — no rotation.
+      const FADE_START = 0.4;
+      const op =
+        k <= FADE_START
+          ? 1
+          : Math.pow(1 - (k - FADE_START) / (1 - FADE_START), 2);
+      p.el.style.opacity = op.toFixed(3);
+      p.el.style.transform = `translate(${p.x}px, ${p.y}px) translate(-50%, -50%)`;
+    }
     requestAnimationFrame(animate);
   }
   requestAnimationFrame(animate);
+}
+
+function initNavToggle() {
+  const toggle = document.querySelector(".nav-toggle");
+  const nav = document.querySelector(".site-header nav");
+  if (!toggle || !nav) return;
+
+  function closeMenu() {
+    toggle.classList.remove("is-open");
+    nav.classList.remove("is-open");
+    toggle.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+  }
+
+  function openMenu() {
+    toggle.classList.add("is-open");
+    nav.classList.add("is-open");
+    toggle.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
+  }
+
+  toggle.addEventListener("click", () => {
+    if (nav.classList.contains("is-open")) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  });
+
+  // Close the menu once a link is tapped, so it doesn't stay open after navigating.
+  nav.addEventListener("click", (e) => {
+    if (e.target.closest("a")) closeMenu();
+  });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -187,5 +293,6 @@ document.addEventListener("DOMContentLoaded", () => {
   renderNames();
   renderHomepage();
   initScrollReveal();
-  initCursorStar();
+  initStardustTrail();
+  initNavToggle();
 });
