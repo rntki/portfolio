@@ -287,6 +287,74 @@ function initNavToggle() {
   });
 }
 
+// Types the hero heading out one character at a time, with a single
+// underscore caret riding the typing head that disappears once it's done.
+// Reads its tokens from the existing [data-typewriter] markup, so the HTML
+// stays the source of truth (and shows normally if JS is off).
+function initTypewriter() {
+  const el = document.querySelector("[data-typewriter]");
+  if (!el) return;
+
+  // Respect reduced-motion: leave the heading as-is, no animation.
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  // Build the token list from the current contents: text nodes become
+  // one token per character; an element (the waving emoji) becomes a
+  // single token that carries an optional pause after it.
+  const tokens = [];
+  el.childNodes.forEach((node) => {
+    if (node.nodeType === Node.TEXT_NODE) {
+      Array.from(node.textContent).forEach((char) => tokens.push({ char }));
+    } else if (node.nodeType === Node.ELEMENT_NODE) {
+      tokens.push({
+        node: node.cloneNode(true),
+        pauseAfter: parseInt(node.getAttribute("data-pause-after") || "0", 10),
+      });
+    }
+  });
+
+  const PER_CHAR = 110; // ms between characters
+  const START_DELAY = 450; // small beat before it starts
+  const END_PAUSE = 1000; // hold the finished sentence before looping
+
+  // Make sure the full heading is still announced to screen readers even
+  // though we're about to clear and retype it.
+  if (!el.getAttribute("aria-label")) {
+    el.setAttribute("aria-label", el.textContent.trim());
+  }
+
+  el.textContent = "";
+  const typed = document.createElement("span");
+  typed.className = "typed";
+  const caret = document.createElement("span");
+  caret.className = "type-caret";
+  caret.setAttribute("aria-hidden", "true");
+  el.append(typed, caret);
+
+  let i = 0;
+  function step() {
+    if (i >= tokens.length) {
+      caret.classList.add("is-done"); // underscore fades out, nothing left behind
+      setTimeout(restart, END_PAUSE); // hold the finished sentence, then loop
+      return;
+    }
+    const tok = tokens[i++];
+    typed.appendChild(tok.node || document.createTextNode(tok.char));
+    el.appendChild(caret); // keep the caret last so it stays at the typing head
+    setTimeout(step, PER_CHAR + (tok.pauseAfter || 0));
+  }
+
+  function restart() {
+    typed.textContent = ""; // clear the sentence
+    caret.classList.remove("is-done"); // underscore blinks again
+    el.appendChild(caret);
+    i = 0;
+    setTimeout(step, START_DELAY);
+  }
+
+  setTimeout(step, START_DELAY);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   renderNav(document.querySelector("[data-nav]"));
   renderNav(document.querySelector("[data-footer-nav]"));
@@ -295,4 +363,5 @@ document.addEventListener("DOMContentLoaded", () => {
   initScrollReveal();
   initStardustTrail();
   initNavToggle();
+  initTypewriter();
 });

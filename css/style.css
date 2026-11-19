@@ -175,6 +175,47 @@ a {
   transform-origin: 70% 70%;
 }
 
+/* ---------- Hero typewriter ---------- */
+
+/* Reserve one line's height so the paragraphs below don't jump while the
+   heading is empty at the start of the type-in. */
+.hero-type {
+  min-height: 1.05em;
+}
+
+.hero-type .typed {
+  /* keep spaces from collapsing as they're typed, but still allow wrapping */
+  white-space: pre-wrap;
+}
+
+/* The single underscore caret that rides the typing head and blinks. It
+   sits on the baseline (bottom of the letters); once typing finishes it
+   fades out so no underscore is left behind. */
+.type-caret {
+  display: inline-block;
+  width: 0.55em;
+  margin-left: 1px;
+  border-bottom: 2px solid var(--ink);
+  vertical-align: baseline;
+  animation: type-blink 0.9s steps(1, end) infinite;
+}
+
+.type-caret.is-done {
+  animation: none;
+  opacity: 0;
+}
+
+@keyframes type-blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  50.01%,
+  100% {
+    opacity: 0;
+  }
+}
+
 @keyframes wave {
   0%,
   60%,
