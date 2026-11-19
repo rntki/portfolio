@@ -315,7 +315,6 @@ function initTypewriter() {
 
   const PER_CHAR = 110; // ms between characters
   const START_DELAY = 450; // small beat before it starts
-  const END_PAUSE = 1000; // hold the finished sentence before looping
 
   // Make sure the full heading is still announced to screen readers even
   // though we're about to clear and retype it.
@@ -334,8 +333,9 @@ function initTypewriter() {
   let i = 0;
   function step() {
     if (i >= tokens.length) {
-      caret.classList.add("is-done"); // underscore fades out, nothing left behind
-      setTimeout(restart, END_PAUSE); // hold the finished sentence, then loop
+      // leave the underscore after the period and flicker it twice, then loop
+      caret.classList.add("is-final");
+      caret.addEventListener("animationend", restart, { once: true });
       return;
     }
     const tok = tokens[i++];
@@ -346,7 +346,7 @@ function initTypewriter() {
 
   function restart() {
     typed.textContent = ""; // clear the sentence
-    caret.classList.remove("is-done"); // underscore blinks again
+    caret.classList.remove("is-final"); // back to the riding blink
     el.appendChild(caret);
     i = 0;
     setTimeout(step, START_DELAY);

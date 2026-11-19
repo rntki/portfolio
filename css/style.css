@@ -200,12 +200,25 @@ a {
   animation: type-blink 0.9s steps(1, end) infinite;
 }
 
-.type-caret.is-done {
-  animation: none;
-  opacity: 0;
+/* When the sentence is finished, the underscore stays put after the period
+   and flickers twice before the loop restarts. A separate keyframe name (not
+   the riding blink) forces the flicker to start cleanly from frame zero. */
+.type-caret.is-final {
+  animation: type-flicker 0.5s steps(1, end) 2;
 }
 
 @keyframes type-blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  50.01%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes type-flicker {
   0%,
   50% {
     opacity: 1;
